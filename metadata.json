@@ -1,0 +1,7 @@
+{
+  "name": "LifeOS",
+  "description": "Personal digital command center unifying system telemetry, projects, files, notes, hardware, and AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
