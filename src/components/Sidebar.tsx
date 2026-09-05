@@ -13,6 +13,8 @@ import {
   Settings,
   ShieldCheck,
   Terminal,
+  BookOpen,
+  Sparkles,
 } from "lucide-react";
 
 export const Sidebar: React.FC = () => {
@@ -81,7 +83,7 @@ export const Sidebar: React.FC = () => {
     {
       id: "python",
       label: "Python Masaüstü Kodu",
-      icon: Code2,
+      icon: Terminal,
       badge: "PySide6",
       desc: "Masaüstü Kaynak Kodları",
     },
@@ -97,7 +99,7 @@ export const Sidebar: React.FC = () => {
   return (
     <aside id="lifeos-sidebar" className="w-64 border-r border-slate-800/50 bg-[#0a0c10] flex flex-col justify-between select-none shrink-0 z-20">
       {/* Brand Header */}
-      <div>
+      <div className="overflow-y-auto">
         <div className="p-5 border-b border-slate-800/50">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.4)] text-white font-bold text-sm">
@@ -115,46 +117,77 @@ export const Sidebar: React.FC = () => {
           </div>
         </div>
 
-        {/* Navigation List */}
-        <nav className="p-3 space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                id={`nav-item-${item.id}`}
-                onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-medium transition-all group border ${
-                  isActive
-                    ? "bg-blue-600/10 text-blue-400 border-blue-500/20 shadow-[0_0_12px_rgba(37,99,235,0.08)]"
-                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border-transparent"
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Icon
-                    className={`w-4 h-4 transition-colors ${
-                      isActive ? "text-blue-400" : "text-slate-500 group-hover:text-slate-300"
-                    }`}
-                  />
-                  <span>{item.label}</span>
-                </div>
+        {/* LifeOS Core Navigation */}
+        <div className="p-3">
+          <div className="px-3 pb-1.5 pt-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold">
+            LifeOS Komuta
+          </div>
+          <nav className="space-y-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  id={`nav-item-${item.id}`}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all group border ${
+                    isActive
+                      ? "bg-blue-600/10 text-blue-400 border-blue-500/20 shadow-[0_0_12px_rgba(37,99,235,0.08)]"
+                      : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40 border-transparent"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon
+                      className={`w-4 h-4 transition-colors ${
+                        isActive ? "text-blue-400" : "text-slate-500 group-hover:text-slate-300"
+                      }`}
+                    />
+                    <span>{item.label}</span>
+                  </div>
 
-                {item.badge && (
-                  <span
-                    className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full border ${
-                      isActive
-                        ? "bg-blue-500/20 border-blue-500/30 text-blue-300"
-                        : "bg-slate-800/80 border-slate-700/60 text-slate-400"
-                    }`}
-                  >
-                    {item.badge}
-                  </span>
-                )}
-              </button>
-            );
-          })}
-        </nav>
+                  {item.badge && (
+                    <span
+                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded-full border ${
+                        isActive
+                          ? "bg-blue-500/20 border-blue-500/30 text-blue-300"
+                          : "bg-slate-800/80 border-slate-700/60 text-slate-400"
+                      }`}
+                    >
+                      {item.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* LIFE EKOSİSTEMİ - LIFECODE ENTEGRASYONU */}
+          <div className="pt-4 mt-3 border-t border-slate-800/60">
+            <div className="px-3 pb-1.5 text-[10px] font-mono uppercase tracking-wider text-blue-400/90 font-bold flex items-center justify-between">
+              <span>Life Ekosistemi</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+            </div>
+
+            <button
+              id="nav-item-lifecode"
+              onClick={() => setActiveTab("lifecode")}
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group border ${
+                activeTab === "lifecode"
+                  ? "bg-blue-600/15 text-blue-300 border-blue-500/40 shadow-[0_0_15px_rgba(37,99,235,0.2)]"
+                  : "bg-blue-950/20 hover:bg-blue-950/40 text-blue-400 border-blue-900/40"
+              }`}
+            >
+              <div className="flex items-center gap-2.5">
+                <Code2 className="w-4 h-4 text-blue-400" />
+                <span>LifeCode IDE</span>
+              </div>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300">
+                Akademi
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Footer / Local AI Status Card */}

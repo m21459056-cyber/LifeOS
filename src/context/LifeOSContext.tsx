@@ -363,13 +363,17 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   const addActivity = (type: ActivityItem["type"], text: string) => {
+    const uniqueSuffix = Math.random().toString(36).substring(2, 9);
     const newItem: ActivityItem = {
-      id: "a-" + Date.now(),
+      id: `a-${Date.now()}-${uniqueSuffix}`,
       type,
       text,
       timestamp: "Şimdi",
     };
-    setActivities((prev) => [newItem, ...prev.slice(0, 19)]);
+    setActivities((prev) => {
+      const existing = prev.filter((item) => item.id !== newItem.id);
+      return [newItem, ...existing.slice(0, 19)];
+    });
   };
 
   const activeProject = projects.find((p) => p.id === activeProjectId) || projects[0];
@@ -448,7 +452,7 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const addNote = (note: Omit<NoteItem, "id" | "updatedAt">) => {
     const newNote: NoteItem = {
-      id: "n-" + Date.now(),
+      id: `n-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       ...note,
       updatedAt: "Şimdi",
     };
@@ -462,7 +466,7 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const addTask = (task: Omit<TaskItem, "id" | "createdAt">) => {
     const newTask: TaskItem = {
-      id: "t-" + Date.now(),
+      id: `t-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
       ...task,
       createdAt: new Date().toISOString().split("T")[0],
     };
@@ -470,17 +474,12 @@ export const LifeOSProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   const toggleTask = (id: string) => {
+    const targetTask = tasks.find((t) => t.id === id);
+    if (targetTask && !targetTask.completed) {
+      addActivity("task_complete", `Görev tamamlandı: ${targetTask.title}`);
+    }
     setTasks((prev) =>
-      prev.map((t) => {
-        if (t.id === id) {
-          const nextState = !t.completed;
-          if (nextState) {
-            addActivity("task_complete", `Görev tamamlandı: ${t.title}`);
-          }
-          return { ...t, completed: nextState };
-        }
-        return t;
-      })
+      prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
     );
   };
 

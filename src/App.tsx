@@ -16,6 +16,7 @@ import { ScreenAssistantView } from "./components/ScreenAssistantView";
 import { MemorySearchView } from "./components/MemorySearchView";
 import { PythonCodebaseView } from "./components/PythonCodebaseView";
 import { SettingsView } from "./components/SettingsView";
+import { LifeCodeView } from "./components/LifeCodeView";
 
 const AppContent: React.FC = () => {
   const { activeTab } = useLifeOS();
@@ -44,6 +45,7 @@ const AppContent: React.FC = () => {
           {activeTab === "memory" && <MemorySearchView />}
           {activeTab === "python" && <PythonCodebaseView />}
           {activeTab === "settings" && <SettingsView />}
+          {activeTab === "lifecode" && <LifeCodeView />}
         </main>
       </div>
 

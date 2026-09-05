@@ -11,6 +11,7 @@ import {
   Terminal,
   X,
   CheckCircle2,
+  Code2,
 } from "lucide-react";
 
 export const Header: React.FC = () => {
@@ -25,6 +26,7 @@ export const Header: React.FC = () => {
     dismissNotification,
     getAccentClasses,
     setActiveTab,
+    activeTab,
   } = useLifeOS();
 
   const [showNotifications, setShowNotifications] = useState(false);
@@ -57,6 +59,20 @@ export const Header: React.FC = () => {
         >
           <Zap className={`w-3.5 h-3.5 ${isSerialConnected ? "text-emerald-400" : "text-slate-500"}`} />
           <span>{isSerialConnected ? `${selectedPort} Bağlı` : "Donanım Çevrimdışı"}</span>
+        </button>
+
+        {/* Ecosystem Quick Switcher */}
+        <button
+          id="btn-header-ecosystem-toggle"
+          onClick={() => setActiveTab(activeTab === "lifecode" ? "dashboard" : "lifecode")}
+          className={`hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition-all ${
+            activeTab === "lifecode"
+              ? "bg-blue-600/20 border-blue-500/40 text-blue-300 shadow-[0_0_10px_rgba(37,99,235,0.2)]"
+              : "bg-slate-900/60 border-slate-800/80 text-slate-300 hover:text-blue-400 hover:border-slate-700"
+          }`}
+        >
+          <Code2 className="w-3.5 h-3.5 text-blue-400" />
+          <span>{activeTab === "lifecode" ? "LifeOS Command" : "LifeCode IDE"}</span>
         </button>
       </div>
 

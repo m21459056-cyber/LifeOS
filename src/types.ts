@@ -141,3 +141,36 @@ export interface SettingsState {
     telemetry: boolean;
   };
 }
+
+export interface LifeCodeLesson {
+  id: string;
+  title: string;
+  level: "Başlangıç" | "Orta" | "İleri";
+  duration: string;
+  category: string;
+  description: string;
+  completed?: boolean;
+  codeSnippet: string;
+}
+
+export interface LifeCodeChallenge {
+  id: string;
+  title: string;
+  difficulty: "Kolay" | "Orta" | "Zor";
+  points: number;
+  description: string;
+  initialCode: string;
+  testPrompt: string;
+}
+
+export interface LifeCodeCommunityProject {
+  id: string;
+  title: string;
+  author: string;
+  avatar: string;
+  likes: number;
+  forks: number;
+  tags: string[];
+  description: string;
+  code: string;
+}
